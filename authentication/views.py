@@ -10,12 +10,14 @@ from .models import User
 from .utils import Util
 import jwt
 from django.conf import settings
+from .renderers import UserRenderer
 
 # Create your views here.
 
 
 class RegisterUsers(generics.GenericAPIView):
     serializer_class = RegisterSerializer
+    renderer_classes =[UserRenderer,]
 
     def post(self, request):
         user = request.data
@@ -40,6 +42,7 @@ class RegisterUsers(generics.GenericAPIView):
 
 class VerifyEmail(views.APIView):
     serializer_class = EmailVerificationSerializer
+    renderer_classes =[UserRenderer,]
     token_param_config = openapi.Parameter(name='token', in_=openapi.IN_QUERY,
                                            description='token from email sent for verifying email',
                                            type=openapi.TYPE_STRING)
@@ -62,7 +65,7 @@ class VerifyEmail(views.APIView):
 
 class LoginUser(generics.GenericAPIView):
     serializer_class = LoginSerializer
-
+    renderer_classes =[UserRenderer,]
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
