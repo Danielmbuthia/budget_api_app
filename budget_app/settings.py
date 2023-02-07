@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'drf_yasg',
     'authentication',
     'rest_framework_simplejwt',
-    'expense'
+    'expense',
+    'income'
 ]
 
 MIDDLEWARE = [
